@@ -117,6 +117,14 @@
     width:7px; height:7px; border-radius:50%; background: var(--gain);
     box-shadow: 0 0 0 3px var(--gain-soft); flex-shrink:0; margin-top:4px;
   }
+  .masthead-links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .ext-link{
+    display:inline-flex; align-items:center; gap:5px; font-size:12.5px; font-weight:600;
+    color: var(--accent-ink); text-decoration:none; border:1px solid var(--border-strong);
+    border-radius:6px; padding:4px 10px; transition: background .12s ease;
+  }
+  .ext-link:hover{ background: var(--accent-soft); }
+  .ext-link:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -241,6 +249,16 @@
   .delta-cell .tri-up, .delta-cell .tri-down{ transform: scale(0.8); }
   .delta-cell.flat{ color: var(--ink-muted); }
 
+  .btn-expand{
+    display:block; width:100%; margin-top:14px; padding:11px 16px;
+    font-family:"Public Sans", sans-serif; font-size:13.5px; font-weight:600;
+    color: var(--accent-ink); background: var(--surface-2);
+    border:1px solid var(--border-strong); border-radius:9px; cursor:pointer;
+    transition: background .12s ease;
+  }
+  .btn-expand:hover{ background: var(--accent-soft); }
+  .btn-expand:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
   /* ---------- Strategy track record ---------- */
   .strategy-card{ padding:24px 26px 26px; margin-bottom:22px; }
   .strategy-grid{ grid-template-columns:repeat(4,1fr); margin:18px 0 14px; }
@@ -263,6 +281,10 @@
         <span class="tag">SICAV &middot; Luxemburgo</span>
         <span class="tag">Sector: Tecnolog&iacute;a global</span>
       </div>
+      <div class="masthead-links">
+        <a class="ext-link" href="https://www.columbiathreadneedle.com/en/lu/intermediary/fund-details/ct-lux-global-technology-nu-usd_lu2126_lu3318823302/" target="_blank" rel="noopener">Ficha oficial del fondo <span aria-hidden="true">&#8599;</span></a>
+        <a class="ext-link" href="https://www.columbiathreadneedle.com/" target="_blank" rel="noopener">Columbia Threadneedle Investments <span aria-hidden="true">&#8599;</span></a>
+      </div>
     </div>
     <div class="live-badge">
       <span class="live-dot" aria-hidden="true"></span>
@@ -277,16 +299,16 @@
         <span class="hero-value" id="heroPrice">US$13.21</span>
         <span class="hero-delta down" id="heroDelta">
           <span class="tri-down" aria-hidden="true"></span>
-          &minus;0.23% desde tu entrada
+          &minus;0.23% desde la fecha de entrada
         </span>
       </div>
       <div class="hero-foot">
-        Cierre del <b id="lastCloseDate">25 de agosto de 2026</b>. Tu inversi&oacute;n inici&oacute; el <b>6 de agosto de 2026</b> a <b>US$13.24</b> por participaci&oacute;n &mdash; ese es el punto de referencia (benchmark) de todos los rendimientos en esta p&aacute;gina.
+        Cierre del <b id="lastCloseDate">25 de agosto de 2026</b>. La inversi&oacute;n se inici&oacute; el <b>6 de agosto de 2026</b> a un precio de <b>US$13.24</b> por participaci&oacute;n, cifra que constituye el punto de referencia (benchmark) para los rendimientos presentados en este documento.
       </div>
     </div>
     <div class="card hero-meta">
       <div class="meta-row">
-        <span class="meta-k">D&iacute;as desde tu entrada</span>
+        <span class="meta-k">D&iacute;as desde la fecha de entrada</span>
         <span class="meta-v" id="daysElapsed">20 d&iacute;as</span>
       </div>
       <div class="meta-row">
@@ -294,11 +316,11 @@
         <span class="meta-v" id="inceptionReturn">+32.10%</span>
       </div>
       <div class="meta-row">
-        <span class="meta-k">Sesiones desde tu entrada</span>
+        <span class="meta-k">Sesiones desde la fecha de entrada</span>
         <span class="meta-v" id="sessionCount">14 cierres</span>
       </div>
       <div class="meta-row">
-        <span class="meta-k">Variaci&oacute;n en USD (desde tu entrada)</span>
+        <span class="meta-k">Variaci&oacute;n en USD (desde la fecha de entrada)</span>
         <span class="meta-v" id="deltaUsd">&minus;US$0.03</span>
       </div>
     </div>
@@ -312,7 +334,7 @@
       </div>
       <div class="chart-key">
         <span class="key-item"><span class="key-swatch"></span>NAV diario</span>
-        <span class="key-item"><span class="key-swatch dashed"></span><span id="entryKeyLabel">Tu entrada &middot; 6 ago</span></span>
+        <span class="key-item"><span class="key-swatch dashed"></span><span id="entryKeyLabel">Entrada &middot; 6 ago</span></span>
       </div>
     </div>
     <div class="chart-wrap" id="chartWrap">
@@ -325,7 +347,7 @@
 
   <section class="card table-card">
     <p class="table-title">Detalle diario</p>
-    <p class="table-sub">Cada rengl&oacute;n compara el cierre del d&iacute;a contra la sesi&oacute;n anterior, contra el precio de inicio del fondo (US$10.00) y contra tu precio de entrada (US$13.24). Antes del 6 de agosto, la &uacute;ltima columna muestra &mdash; porque a&uacute;n no hab&iacute;as invertido.</p>
+    <p class="table-sub">Cada rengl&oacute;n compara el cierre del d&iacute;a contra la sesi&oacute;n anterior, contra el precio de inicio del fondo (US$10.00) y contra el precio de entrada (US$13.24). Previo al 6 de agosto, la &uacute;ltima columna no aplica, dado que la inversi&oacute;n a&uacute;n no se hab&iacute;a realizado.</p>
     <div class="table-scroll">
       <table>
         <thead>
@@ -334,17 +356,18 @@
             <th>NAV (USD)</th>
             <th>Var. d&iacute;a</th>
             <th>Var. desde inicio</th>
-            <th>Var. desde tu entrada</th>
+            <th>Var. desde la entrada</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
+    <button class="btn-expand" id="toggleRowsBtn" type="button">Ver historial completo</button>
   </section>
 
   <section class="card strategy-card">
     <p class="table-title">Track record de la estrategia a largo plazo</p>
-    <p class="table-sub">La clase NU (la tuya) naci&oacute; el 9 de abril de 2026 y todav&iacute;a no tiene historial de 1, 3 ni 5 a&ntilde;os. Las siguientes cifras corresponden a la <b>clase IU (USD, acumulaci&oacute;n)</b> del mismo fondo <b>CT (Lux) &ndash; Global Technology</b> (ISIN LU0444972805), que existe desde hace m&aacute;s tiempo y tiene una comisi&oacute;n distinta a la tuya. Se muestran &uacute;nicamente como referencia del comportamiento hist&oacute;rico de la estrategia de inversi&oacute;n, no como el rendimiento de tu inversi&oacute;n real.</p>
+    <p class="table-sub">La clase NU, en la que se encuentra realizada la inversi&oacute;n, inici&oacute; operaciones el 9 de abril de 2026 y todav&iacute;a no cuenta con historial de 1, 3 ni 5 a&ntilde;os. Las siguientes cifras corresponden a la <b>clase IU (USD, acumulaci&oacute;n)</b> del mismo fondo <b>CT (Lux) &ndash; Global Technology</b> (ISIN LU0444972805), vigente desde hace m&aacute;s tiempo y con una estructura de comisiones distinta. Se presentan &uacute;nicamente como referencia del comportamiento hist&oacute;rico de la estrategia de inversi&oacute;n, no como el rendimiento real de la inversi&oacute;n del cliente.</p>
     <div class="stats-grid strategy-grid">
       <div class="card stat-tile">
         <span class="stat-label">YTD (en lo que va de 2026)</span>
@@ -371,9 +394,9 @@
   </section>
 
   <footer>
-    <p><b>Fondo:</b> CT (Lux) &ndash; Global Technology, clase NU (USD, acumulaci&oacute;n) &middot; ISIN LU3318823302 &middot; dom&iacute;stico de Luxemburgo, tipo SICAV &middot; categor&iacute;a Morningstar: Renta Variable Sectorial &ndash; Tecnolog&iacute;a &middot; gestores: Paul H. Wick y Vimal Patel.</p>
+    <p><b>Fondo:</b> <a href="https://www.columbiathreadneedle.com/en/lu/intermediary/fund-details/ct-lux-global-technology-nu-usd_lu2126_lu3318823302/" target="_blank" rel="noopener">CT (Lux) &ndash; Global Technology</a>, clase NU (USD, acumulaci&oacute;n) &middot; ISIN LU3318823302 &middot; dom&iacute;stico de Luxemburgo, tipo SICAV &middot; categor&iacute;a Morningstar: Renta Variable Sectorial &ndash; Tecnolog&iacute;a &middot; gestores: Paul H. Wick y Vimal Patel. M&aacute;s informaci&oacute;n en <a href="https://www.columbiathreadneedle.com/" target="_blank" rel="noopener">columbiathreadneedle.com</a>.</p>
     <p>Precios de cierre (NAV a NAV) obtenidos de Financial Times / Morningstar, con al menos 15 minutos de retraso. &Uacute;ltimo dato incorporado: cierre del <span id="footerLastDate">25 de agosto de 2026</span>. Actualizaci&oacute;n autom&aacute;tica diaria (el bloque de track record de la estrategia es una foto fija y no se actualiza solo).</p>
-    <p>Esta p&aacute;gina es &uacute;nicamente informativa para el seguimiento de tu inversi&oacute;n; no constituye asesor&iacute;a de inversi&oacute;n. El rendimiento pasado no garantiza resultados futuros y el valor de la participaci&oacute;n puede subir o bajar.</p>
+    <p>Este documento tiene car&aacute;cter &uacute;nicamente informativo para el seguimiento de la inversi&oacute;n; no constituye asesor&iacute;a de inversi&oacute;n. El rendimiento pasado no garantiza resultados futuros y el valor de la participaci&oacute;n puede subir o bajar.</p>
   </footer>
 
 </div>
@@ -526,7 +549,7 @@
   document.getElementById('heroPrice').textContent = money(last.p);
   var heroDeltaEl = document.getElementById('heroDelta');
   heroDeltaEl.className = 'hero-delta ' + (totalReturn >= 0 ? 'up' : 'down');
-  heroDeltaEl.innerHTML = '<span class="' + (totalReturn >= 0 ? 'tri-up' : 'tri-down') + '" aria-hidden="true"></span>' + pct(totalReturn) + ' desde tu entrada';
+  heroDeltaEl.innerHTML = '<span class="' + (totalReturn >= 0 ? 'tri-up' : 'tri-down') + '" aria-hidden="true"></span>' + pct(totalReturn) + ' desde la fecha de entrada';
   document.getElementById('deltaUsd').textContent = signedMoney(totalReturnUsd);
 
   var daysElapsed = Math.max(0, Math.round((new Date() - parseLocal(ENTRY_DATE)) / 86400000));
@@ -542,7 +565,7 @@
   document.getElementById('chartDateRange').textContent = 'Del ' + fmtShort(data[0].d) + ' al ' + fmtShort(last.d) + ' de ' + parseLocal(last.d).getFullYear() + ' · un punto por sesión de mercado';
   document.getElementById('inceptionReturn').textContent = pct(inceptionReturn);
   document.getElementById('inceptionReturn').className = 'meta-v ' + (inceptionReturn >= 0 ? 'gain' : 'loss');
-  document.getElementById('entryKeyLabel').textContent = 'Tu entrada · ' + fmtShort(ENTRY_DATE);
+  document.getElementById('entryKeyLabel').textContent = 'Entrada · ' + fmtShort(ENTRY_DATE);
   document.getElementById('chartSvg').setAttribute('aria-label', 'Gráfica de precio diario del fondo desde su inicio el ' + fmtLongDate(data[0].d));
 
   /* ---------- stat tiles ---------- */
@@ -572,11 +595,30 @@
     var rowClass = i === entryIndex ? 'is-entry' : (i === data.length-1 ? 'is-current' : '');
     var badges = '';
     if (i === 0) badges += '<span class="badge">INICIO DEL FONDO</span>';
-    if (i === entryIndex) badges += '<span class="badge">TU ENTRADA</span>';
+    if (i === entryIndex) badges += '<span class="badge">FECHA DE ENTRADA</span>';
     if (i === data.length-1) badges += '<span class="badge">MÁS RECIENTE</span>';
     return '<tr class="' + rowClass + '"><td class="date-cell">' + fmtLong(r.d) + badges + '</td><td>' + money(r.p) + '</td><td>' + deltaCell(r.daily) + '</td><td>' + deltaCell(r.cumInception) + '</td><td>' + deltaCell(r.cumEntry) + '</td></tr>';
+  }).slice().reverse();
+
+  var VISIBLE_ROWS = 12;
+  var toggleBtn = document.getElementById('toggleRowsBtn');
+  var tableExpanded = false;
+  function renderTable(){
+    var count = tableExpanded ? rowsHtml.length : Math.min(VISIBLE_ROWS, rowsHtml.length);
+    tbody.innerHTML = rowsHtml.slice(0, count).join('');
+    var remaining = rowsHtml.length - VISIBLE_ROWS;
+    if (remaining <= 0){
+      toggleBtn.style.display = 'none';
+    } else {
+      toggleBtn.style.display = '';
+      toggleBtn.textContent = tableExpanded ? 'Mostrar menos' : 'Ver historial completo (' + remaining + ' sesiones adicionales)';
+    }
+  }
+  toggleBtn.addEventListener('click', function(){
+    tableExpanded = !tableExpanded;
+    renderTable();
   });
-  tbody.innerHTML = rowsHtml.slice().reverse().join('');
+  renderTable();
 
   /* ---------- chart ---------- */
   var svg = document.getElementById('chartSvg');
@@ -638,7 +680,7 @@
 
   svgParts.push(el('circle', {cx:entryX, cy:yFor(clientEntry.p), r:5, class:'entry-dot'}));
   var entryLbl = el('text', {x:entryX + 8, y: yFor(clientEntry.p) - 10, class:'entry-label'});
-  entryLbl.textContent = 'Tu entrada $' + clientEntry.p.toFixed(2);
+  entryLbl.textContent = 'Entrada $' + clientEntry.p.toFixed(2);
   svgParts.push(entryLbl);
 
   var endX = xFor(data.length-1), endY = yFor(last.p);
@@ -670,7 +712,7 @@
     crosshairDot.style.opacity = 1;
 
     var dailyText = r.daily === null ? 'Sin sesión previa' : ('Día: ' + pct(r.daily));
-    var entryText = r.cumEntry === null ? 'Antes de tu entrada' : ('Desde tu entrada: ' + pct(r.cumEntry));
+    var entryText = r.cumEntry === null ? 'Previo a la fecha de entrada' : ('Desde la entrada: ' + pct(r.cumEntry));
     tooltip.innerHTML = '<span class="t-date">' + fmtShort(r.d) + ' &middot; ' + money(r.p) + '</span>' +
       '<span class="t-row"><span>' + dailyText + '</span></span>' +
       '<span class="t-row"><span>Desde inicio: ' + pct(r.cumInception) + '</span></span>' +
