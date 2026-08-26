@@ -156,6 +156,8 @@
   .meta-row + .meta-row{ padding-top:14px; border-top:1px solid var(--border); }
   .meta-k{ font-size:13px; color: var(--ink-2); }
   .meta-v{ font-family:"IBM Plex Mono", monospace; font-size:14.5px; font-weight:500; text-align:right; }
+  .meta-v.gain{ color: var(--gain); }
+  .meta-v.loss{ color: var(--loss); }
 
   /* ---------- Chart ---------- */
   .chart-card{ padding:26px 30px 18px; margin-bottom:22px; }
@@ -239,6 +241,12 @@
   .delta-cell .tri-up, .delta-cell .tri-down{ transform: scale(0.8); }
   .delta-cell.flat{ color: var(--ink-muted); }
 
+  /* ---------- Strategy track record ---------- */
+  .strategy-card{ padding:24px 26px 26px; margin-bottom:22px; }
+  .strategy-grid{ grid-template-columns:repeat(4,1fr); margin:18px 0 14px; }
+  @media (max-width:640px){ .strategy-grid{ grid-template-columns:repeat(2,1fr); } }
+  .strategy-footnote{ font-size:11.5px; color: var(--ink-muted); margin:0; }
+
   /* ---------- Footer ---------- */
   footer{ font-size:12.5px; color: var(--ink-muted); line-height:1.6; border-top:1px solid var(--border); padding-top:20px; }
   footer p{ margin:0 0 8px; }
@@ -278,15 +286,19 @@
     </div>
     <div class="card hero-meta">
       <div class="meta-row">
-        <span class="meta-k">D&iacute;as desde la entrada</span>
+        <span class="meta-k">D&iacute;as desde tu entrada</span>
         <span class="meta-v" id="daysElapsed">20 d&iacute;as</span>
       </div>
       <div class="meta-row">
-        <span class="meta-k">Sesiones registradas</span>
+        <span class="meta-k">Desde el inicio del fondo (9 abr 2026)</span>
+        <span class="meta-v" id="inceptionReturn">+32.10%</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Sesiones desde tu entrada</span>
         <span class="meta-v" id="sessionCount">14 cierres</span>
       </div>
       <div class="meta-row">
-        <span class="meta-k">Variaci&oacute;n en USD</span>
+        <span class="meta-k">Variaci&oacute;n en USD (desde tu entrada)</span>
         <span class="meta-v" id="deltaUsd">&minus;US$0.03</span>
       </div>
     </div>
@@ -300,7 +312,7 @@
       </div>
       <div class="chart-key">
         <span class="key-item"><span class="key-swatch"></span>NAV diario</span>
-        <span class="key-item"><span class="key-swatch dashed"></span>Entrada &middot; 6 ago</span>
+        <span class="key-item"><span class="key-swatch dashed"></span><span id="entryKeyLabel">Tu entrada &middot; 6 ago</span></span>
       </div>
     </div>
     <div class="chart-wrap" id="chartWrap">
@@ -313,7 +325,7 @@
 
   <section class="card table-card">
     <p class="table-title">Detalle diario</p>
-    <p class="table-sub">Cada rengl&oacute;n compara el cierre del d&iacute;a contra la sesi&oacute;n anterior y contra tu precio de entrada (US$13.24).</p>
+    <p class="table-sub">Cada rengl&oacute;n compara el cierre del d&iacute;a contra la sesi&oacute;n anterior, contra el precio de inicio del fondo (US$10.00) y contra tu precio de entrada (US$13.24). Antes del 6 de agosto, la &uacute;ltima columna muestra &mdash; porque a&uacute;n no hab&iacute;as invertido.</p>
     <div class="table-scroll">
       <table>
         <thead>
@@ -321,7 +333,8 @@
             <th>Fecha</th>
             <th>NAV (USD)</th>
             <th>Var. d&iacute;a</th>
-            <th>Var. desde entrada</th>
+            <th>Var. desde inicio</th>
+            <th>Var. desde tu entrada</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -329,9 +342,37 @@
     </div>
   </section>
 
+  <section class="card strategy-card">
+    <p class="table-title">Track record de la estrategia a largo plazo</p>
+    <p class="table-sub">La clase NU (la tuya) naci&oacute; el 9 de abril de 2026 y todav&iacute;a no tiene historial de 1, 3 ni 5 a&ntilde;os. Las siguientes cifras corresponden a la <b>clase IU (USD, acumulaci&oacute;n)</b> del mismo fondo <b>CT (Lux) &ndash; Global Technology</b> (ISIN LU0444972805), que existe desde hace m&aacute;s tiempo y tiene una comisi&oacute;n distinta a la tuya. Se muestran &uacute;nicamente como referencia del comportamiento hist&oacute;rico de la estrategia de inversi&oacute;n, no como el rendimiento de tu inversi&oacute;n real.</p>
+    <div class="stats-grid strategy-grid">
+      <div class="card stat-tile">
+        <span class="stat-label">YTD (en lo que va de 2026)</span>
+        <span class="stat-value gain">+49.59%</span>
+        <span class="stat-sub">Del 31 dic 2025 al 24 ago 2026</span>
+      </div>
+      <div class="card stat-tile">
+        <span class="stat-label">1 a&ntilde;o</span>
+        <span class="stat-value gain">+73.73%</span>
+        <span class="stat-sub">Acumulado</span>
+      </div>
+      <div class="card stat-tile">
+        <span class="stat-label">3 a&ntilde;os</span>
+        <span class="stat-value gain">+38.90%</span>
+        <span class="stat-sub">Anualizado</span>
+      </div>
+      <div class="card stat-tile">
+        <span class="stat-label">5 a&ntilde;os</span>
+        <span class="stat-value gain">+23.26%</span>
+        <span class="stat-sub">Anualizado</span>
+      </div>
+    </div>
+    <p class="strategy-footnote">Cifras de la clase IU (LU0444972805) al 24 de agosto de 2026. Los periodos de 3 y 5 a&ntilde;os est&aacute;n anualizados; YTD y 1 a&ntilde;o son acumulados. Fuente: Financial Times / Morningstar.</p>
+  </section>
+
   <footer>
     <p><b>Fondo:</b> CT (Lux) &ndash; Global Technology, clase NU (USD, acumulaci&oacute;n) &middot; ISIN LU3318823302 &middot; dom&iacute;stico de Luxemburgo, tipo SICAV &middot; categor&iacute;a Morningstar: Renta Variable Sectorial &ndash; Tecnolog&iacute;a &middot; gestores: Paul H. Wick y Vimal Patel.</p>
-    <p>Precios de cierre (NAV a NAV) obtenidos de Financial Times / Morningstar, con al menos 15 minutos de retraso. &Uacute;ltimo dato incorporado: cierre del <span id="footerLastDate">25 de agosto de 2026</span>. Actualizaci&oacute;n autom&aacute;tica diaria.</p>
+    <p>Precios de cierre (NAV a NAV) obtenidos de Financial Times / Morningstar, con al menos 15 minutos de retraso. &Uacute;ltimo dato incorporado: cierre del <span id="footerLastDate">25 de agosto de 2026</span>. Actualizaci&oacute;n autom&aacute;tica diaria (el bloque de track record de la estrategia es una foto fija y no se actualiza solo).</p>
     <p>Esta p&aacute;gina es &uacute;nicamente informativa para el seguimiento de tu inversi&oacute;n; no constituye asesor&iacute;a de inversi&oacute;n. El rendimiento pasado no garantiza resultados futuros y el valor de la participaci&oacute;n puede subir o bajar.</p>
   </footer>
 
@@ -339,7 +380,87 @@
 
 <script>
 (function(){
+  var ENTRY_DATE = "2026-08-06";
   var data = [
+    {d:"2026-04-09", p:10.00},
+    {d:"2026-04-10", p:10.08},
+    {d:"2026-04-13", p:10.30},
+    {d:"2026-04-14", p:10.66},
+    {d:"2026-04-15", p:10.73},
+    {d:"2026-04-16", p:10.78},
+    {d:"2026-04-17", p:10.95},
+    {d:"2026-04-20", p:11.05},
+    {d:"2026-04-21", p:11.12},
+    {d:"2026-04-22", p:11.32},
+    {d:"2026-04-23", p:11.26},
+    {d:"2026-04-24", p:11.41},
+    {d:"2026-04-27", p:11.37},
+    {d:"2026-04-28", p:11.14},
+    {d:"2026-04-29", p:11.50},
+    {d:"2026-04-30", p:11.69},
+    {d:"2026-05-04", p:11.82},
+    {d:"2026-05-05", p:12.00},
+    {d:"2026-05-06", p:12.14},
+    {d:"2026-05-07", p:11.93},
+    {d:"2026-05-08", p:12.20},
+    {d:"2026-05-11", p:12.32},
+    {d:"2026-05-12", p:12.13},
+    {d:"2026-05-13", p:12.30},
+    {d:"2026-05-15", p:12.25},
+    {d:"2026-05-18", p:12.07},
+    {d:"2026-05-19", p:11.98},
+    {d:"2026-05-20", p:12.34},
+    {d:"2026-05-21", p:12.51},
+    {d:"2026-05-22", p:12.65},
+    {d:"2026-05-26", p:12.89},
+    {d:"2026-05-27", p:12.76},
+    {d:"2026-05-28", p:12.85},
+    {d:"2026-05-29", p:12.97},
+    {d:"2026-06-01", p:13.25},
+    {d:"2026-06-02", p:13.76},
+    {d:"2026-06-03", p:13.63},
+    {d:"2026-06-04", p:13.62},
+    {d:"2026-06-05", p:12.73},
+    {d:"2026-06-08", p:12.92},
+    {d:"2026-06-09", p:12.78},
+    {d:"2026-06-10", p:12.39},
+    {d:"2026-06-11", p:12.85},
+    {d:"2026-06-12", p:12.99},
+    {d:"2026-06-15", p:13.49},
+    {d:"2026-06-16", p:13.28},
+    {d:"2026-06-17", p:13.25},
+    {d:"2026-06-18", p:13.74},
+    {d:"2026-06-22", p:13.79},
+    {d:"2026-06-24", p:13.29},
+    {d:"2026-06-25", p:13.32},
+    {d:"2026-06-26", p:12.90},
+    {d:"2026-06-29", p:13.38},
+    {d:"2026-06-30", p:13.69},
+    {d:"2026-07-01", p:13.46},
+    {d:"2026-07-02", p:13.08},
+    {d:"2026-07-06", p:13.33},
+    {d:"2026-07-07", p:13.02},
+    {d:"2026-07-08", p:13.01},
+    {d:"2026-07-09", p:13.30},
+    {d:"2026-07-10", p:13.26},
+    {d:"2026-07-13", p:12.99},
+    {d:"2026-07-14", p:13.17},
+    {d:"2026-07-15", p:13.11},
+    {d:"2026-07-16", p:12.73},
+    {d:"2026-07-17", p:12.63},
+    {d:"2026-07-20", p:12.58},
+    {d:"2026-07-21", p:12.88},
+    {d:"2026-07-22", p:12.76},
+    {d:"2026-07-23", p:12.58},
+    {d:"2026-07-24", p:12.37},
+    {d:"2026-07-27", p:12.46},
+    {d:"2026-07-28", p:12.30},
+    {d:"2026-07-29", p:12.08},
+    {d:"2026-07-30", p:12.65},
+    {d:"2026-07-31", p:12.70},
+    {d:"2026-08-03", p:12.99},
+    {d:"2026-08-04", p:13.51},
+    {d:"2026-08-05", p:13.37},
     {d:"2026-08-06", p:13.24},
     {d:"2026-08-07", p:13.39},
     {d:"2026-08-10", p:13.29},
@@ -378,11 +499,14 @@
     return sign + 'US$' + Math.abs(v).toFixed(2);
   }
 
-  var entry = data[0].p;
+  var inception = data[0];
   var last = data[data.length-1];
+  var entryIndex = data.findIndex(function(r){ return r.d === ENTRY_DATE; });
+  var clientEntry = data[entryIndex];
   data.forEach(function(r, i){
     r.daily = i === 0 ? null : (r.p - data[i-1].p) / data[i-1].p * 100;
-    r.cum = (r.p - entry) / entry * 100;
+    r.cumInception = (r.p - inception.p) / inception.p * 100;
+    r.cumEntry = i >= entryIndex ? (r.p - clientEntry.p) / clientEntry.p * 100 : null;
   });
 
   var prices = data.map(function(r){ return r.p; });
@@ -394,15 +518,10 @@
   var bestRow = dailyRows.reduce(function(a,b){ return b.daily > a.daily ? b : a; });
   var worstRow = dailyRows.reduce(function(a,b){ return b.daily < a.daily ? b : a; });
 
-  var peakSoFar = data[0].p, maxDrawdown = 0, ddPeakRow = data[0], ddTroughRow = data[0];
-  data.forEach(function(r){
-    if (r.p > peakSoFar) peakSoFar = r.p;
-    var dd = (r.p - peakSoFar) / peakSoFar * 100;
-    if (dd < maxDrawdown){ maxDrawdown = dd; ddTroughRow = r; ddPeakRow = data.filter(function(x){return x.p===peakSoFar;})[0]; }
-  });
-
-  var totalReturn = last.cum;
-  var totalReturnUsd = last.p - entry;
+  var totalReturn = last.cumEntry;
+  var totalReturnUsd = last.p - clientEntry.p;
+  var inceptionReturn = last.cumInception;
+  var inceptionReturnUsd = last.p - inception.p;
 
   document.getElementById('heroPrice').textContent = money(last.p);
   var heroDeltaEl = document.getElementById('heroDelta');
@@ -410,9 +529,9 @@
   heroDeltaEl.innerHTML = '<span class="' + (totalReturn >= 0 ? 'tri-up' : 'tri-down') + '" aria-hidden="true"></span>' + pct(totalReturn) + ' desde tu entrada';
   document.getElementById('deltaUsd').textContent = signedMoney(totalReturnUsd);
 
-  var daysElapsed = Math.max(0, Math.round((new Date() - parseLocal(data[0].d)) / 86400000));
+  var daysElapsed = Math.max(0, Math.round((new Date() - parseLocal(ENTRY_DATE)) / 86400000));
   document.getElementById('daysElapsed').textContent = daysElapsed + (daysElapsed === 1 ? ' día' : ' días');
-  document.getElementById('sessionCount').textContent = data.length + (data.length === 1 ? ' cierre' : ' cierres');
+  document.getElementById('sessionCount').textContent = (data.length - entryIndex) + (data.length - entryIndex === 1 ? ' cierre' : ' cierres');
 
   function fmtLongDate(iso){
     var s = parseLocal(iso).toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
@@ -421,12 +540,16 @@
   document.getElementById('lastCloseDate').textContent = fmtLongDate(last.d);
   document.getElementById('footerLastDate').textContent = fmtLongDate(last.d);
   document.getElementById('chartDateRange').textContent = 'Del ' + fmtShort(data[0].d) + ' al ' + fmtShort(last.d) + ' de ' + parseLocal(last.d).getFullYear() + ' · un punto por sesión de mercado';
+  document.getElementById('inceptionReturn').textContent = pct(inceptionReturn);
+  document.getElementById('inceptionReturn').className = 'meta-v ' + (inceptionReturn >= 0 ? 'gain' : 'loss');
+  document.getElementById('entryKeyLabel').textContent = 'Tu entrada · ' + fmtShort(ENTRY_DATE);
+  document.getElementById('chartSvg').setAttribute('aria-label', 'Gráfica de precio diario del fondo desde su inicio el ' + fmtLongDate(data[0].d));
 
   /* ---------- stat tiles ---------- */
   var stats = [
-    { label:'Rendimiento total desde entrada', value: pct(totalReturn), cls: totalReturn>=0?'gain':'loss', sub: signedMoney(totalReturnUsd) + ' por participación' },
-    { label:'Precio máximo del periodo', value: money(maxP), cls:'', sub: fmtShort(maxRow.d) },
-    { label:'Precio mínimo del periodo', value: money(minP), cls:'', sub: fmtShort(minRow.d) },
+    { label:'Rendimiento desde inicio del fondo', value: pct(inceptionReturn), cls: inceptionReturn>=0?'gain':'loss', sub: signedMoney(inceptionReturnUsd) + ' por participación desde $' + inception.p.toFixed(2) },
+    { label:'Precio máximo (desde el inicio)', value: money(maxP), cls:'', sub: fmtShort(maxRow.d) },
+    { label:'Precio mínimo (desde el inicio)', value: money(minP), cls:'', sub: fmtShort(minRow.d) },
     { label:'Mejor día', value: pct(bestRow.daily), cls:'gain', sub: fmtShort(bestRow.d) },
     { label:'Peor día', value: pct(worstRow.daily), cls:'loss', sub: fmtShort(worstRow.d) }
   ];
@@ -438,22 +561,20 @@
   }).join('');
 
   /* ---------- table ---------- */
+  function deltaCell(v){
+    if (v === null || v === undefined){ return '<span class="delta-cell flat">&mdash;</span>'; }
+    var cls = v > 0 ? 'gain' : (v < 0 ? 'loss' : 'flat');
+    var tri = v > 0 ? '<span class="tri-up" aria-hidden="true"></span>' : (v < 0 ? '<span class="tri-down" aria-hidden="true"></span>' : '');
+    return '<span class="delta-cell ' + cls + '">' + tri + pct(v) + '</span>';
+  }
   var tbody = document.getElementById('tableBody');
   var rowsHtml = data.map(function(r, i){
-    var rowClass = i === 0 ? 'is-entry' : (i === data.length-1 ? 'is-current' : '');
-    var dailyHtml;
-    if (r.daily === null){
-      dailyHtml = '<span class="delta-cell flat">&mdash;</span>';
-    } else {
-      var dCls = r.daily > 0 ? 'gain' : (r.daily < 0 ? 'loss' : 'flat');
-      var dTri = r.daily > 0 ? '<span class="tri-up" aria-hidden="true"></span>' : (r.daily < 0 ? '<span class="tri-down" aria-hidden="true"></span>' : '');
-      dailyHtml = '<span class="delta-cell ' + dCls + '">' + dTri + pct(r.daily) + '</span>';
-    }
-    var cCls = r.cum > 0 ? 'gain' : (r.cum < 0 ? 'loss' : 'flat');
-    var cTri = r.cum > 0 ? '<span class="tri-up" aria-hidden="true"></span>' : (r.cum < 0 ? '<span class="tri-down" aria-hidden="true"></span>' : '');
-    var cumHtml = '<span class="delta-cell ' + cCls + '">' + cTri + pct(r.cum) + '</span>';
-    var badge = i === 0 ? '<span class="badge">ENTRADA</span>' : (i === data.length-1 ? '<span class="badge">MÁS RECIENTE</span>' : '');
-    return '<tr class="' + rowClass + '"><td class="date-cell">' + fmtLong(r.d) + badge + '</td><td>' + money(r.p) + '</td><td>' + dailyHtml + '</td><td>' + cumHtml + '</td></tr>';
+    var rowClass = i === entryIndex ? 'is-entry' : (i === data.length-1 ? 'is-current' : '');
+    var badges = '';
+    if (i === 0) badges += '<span class="badge">INICIO DEL FONDO</span>';
+    if (i === entryIndex) badges += '<span class="badge">TU ENTRADA</span>';
+    if (i === data.length-1) badges += '<span class="badge">MÁS RECIENTE</span>';
+    return '<tr class="' + rowClass + '"><td class="date-cell">' + fmtLong(r.d) + badges + '</td><td>' + money(r.p) + '</td><td>' + deltaCell(r.daily) + '</td><td>' + deltaCell(r.cumInception) + '</td><td>' + deltaCell(r.cumEntry) + '</td></tr>';
   });
   tbody.innerHTML = rowsHtml.slice().reverse().join('');
 
@@ -499,7 +620,7 @@
     }
   });
 
-  var entryX = xFor(0);
+  var entryX = xFor(entryIndex);
   svgParts.push(el('line', {x1:entryX, x2:entryX, y1:padT, y2:padT+plotH, class:'entry-guide'}));
 
   var areaPts = data.map(function(r,i){ return xFor(i) + ',' + yFor(r.p); }).join(' L ');
@@ -509,9 +630,15 @@
   var linePts = data.map(function(r,i){ return xFor(i) + ',' + yFor(r.p); }).join(' L ');
   svgParts.push(el('path', {d:'M ' + linePts, class:'price-line'}));
 
-  svgParts.push(el('circle', {cx:entryX, cy:yFor(entry), r:5, class:'entry-dot'}));
-  var entryLbl = el('text', {x:entryX + 8, y: yFor(entry) - 10, class:'entry-label'});
-  entryLbl.textContent = 'Entrada $' + entry.toFixed(2);
+  var inceptionX = xFor(0);
+  svgParts.push(el('circle', {cx:inceptionX, cy:yFor(inception.p), r:5, class:'entry-dot'}));
+  var inceptionLbl = el('text', {x:inceptionX + 8, y: yFor(inception.p) - 10, class:'entry-label'});
+  inceptionLbl.textContent = 'Inicio $' + inception.p.toFixed(2);
+  svgParts.push(inceptionLbl);
+
+  svgParts.push(el('circle', {cx:entryX, cy:yFor(clientEntry.p), r:5, class:'entry-dot'}));
+  var entryLbl = el('text', {x:entryX + 8, y: yFor(clientEntry.p) - 10, class:'entry-label'});
+  entryLbl.textContent = 'Tu entrada $' + clientEntry.p.toFixed(2);
   svgParts.push(entryLbl);
 
   var endX = xFor(data.length-1), endY = yFor(last.p);
@@ -543,9 +670,11 @@
     crosshairDot.style.opacity = 1;
 
     var dailyText = r.daily === null ? 'Sin sesión previa' : ('Día: ' + pct(r.daily));
+    var entryText = r.cumEntry === null ? 'Antes de tu entrada' : ('Desde tu entrada: ' + pct(r.cumEntry));
     tooltip.innerHTML = '<span class="t-date">' + fmtShort(r.d) + ' &middot; ' + money(r.p) + '</span>' +
       '<span class="t-row"><span>' + dailyText + '</span></span>' +
-      '<span class="t-row"><span>Desde entrada: ' + pct(r.cum) + '</span></span>';
+      '<span class="t-row"><span>Desde inicio: ' + pct(r.cumInception) + '</span></span>' +
+      '<span class="t-row"><span>' + entryText + '</span></span>';
 
     var svgRect = svg.getBoundingClientRect();
     var scale = svgRect.width / W;
