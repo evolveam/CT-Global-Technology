@@ -439,7 +439,7 @@
 
   /* ---------- table ---------- */
   var tbody = document.getElementById('tableBody');
-  tbody.innerHTML = data.map(function(r, i){
+  var rowsHtml = data.map(function(r, i){
     var rowClass = i === 0 ? 'is-entry' : (i === data.length-1 ? 'is-current' : '');
     var dailyHtml;
     if (r.daily === null){
@@ -454,7 +454,8 @@
     var cumHtml = '<span class="delta-cell ' + cCls + '">' + cTri + pct(r.cum) + '</span>';
     var badge = i === 0 ? '<span class="badge">ENTRADA</span>' : (i === data.length-1 ? '<span class="badge">MÁS RECIENTE</span>' : '');
     return '<tr class="' + rowClass + '"><td class="date-cell">' + fmtLong(r.d) + badge + '</td><td>' + money(r.p) + '</td><td>' + dailyHtml + '</td><td>' + cumHtml + '</td></tr>';
-  }).join('');
+  });
+  tbody.innerHTML = rowsHtml.slice().reverse().join('');
 
   /* ---------- chart ---------- */
   var svg = document.getElementById('chartSvg');
