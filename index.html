@@ -1,0 +1,576 @@
+<title>CT Global Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    color-scheme: light;
+    --paper:        #F2F4F6;
+    --surface:      #FFFFFF;
+    --surface-2:    #FBFCFD;
+    --ink:          #131A22;
+    --ink-2:        #4A5766;
+    --ink-muted:    #8593A1;
+    --grid-line:    #E2E7EC;
+    --border:       rgba(19,26,34,0.10);
+    --border-strong:rgba(19,26,34,0.16);
+    --accent:       #2657A6;
+    --accent-ink:   #1D4685;
+    --accent-soft:  rgba(38,87,166,0.09);
+    --accent-soft-2:rgba(38,87,166,0.16);
+    --gain:         #0E7A38;
+    --gain-soft:    rgba(14,122,56,0.10);
+    --loss:         #B3352A;
+    --loss-soft:    rgba(179,53,42,0.09);
+    --shadow: 0 1px 2px rgba(19,26,34,0.04), 0 8px 24px -12px rgba(19,26,34,0.12);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --paper:        #0C1116;
+      --surface:      #131A22;
+      --surface-2:    #101620;
+      --ink:          #EEF2F6;
+      --ink-2:        #B6C1CC;
+      --ink-muted:    #7C8894;
+      --grid-line:    #253039;
+      --border:       rgba(238,242,246,0.10);
+      --border-strong:rgba(238,242,246,0.18);
+      --accent:       #7BAAF0;
+      --accent-ink:   #9CC0F5;
+      --accent-soft:  rgba(123,170,240,0.14);
+      --accent-soft-2:rgba(123,170,240,0.22);
+      --gain:         #3FCB7A;
+      --gain-soft:    rgba(63,203,122,0.14);
+      --loss:         #E37D71;
+      --loss-soft:    rgba(227,125,113,0.14);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:        #0C1116;
+    --surface:      #131A22;
+    --surface-2:    #101620;
+    --ink:          #EEF2F6;
+    --ink-2:        #B6C1CC;
+    --ink-muted:    #7C8894;
+    --grid-line:    #253039;
+    --border:       rgba(238,242,246,0.10);
+    --border-strong:rgba(238,242,246,0.18);
+    --accent:       #7BAAF0;
+    --accent-ink:   #9CC0F5;
+    --accent-soft:  rgba(123,170,240,0.14);
+    --accent-soft-2:rgba(123,170,240,0.22);
+    --gain:         #3FCB7A;
+    --gain-soft:    rgba(63,203,122,0.14);
+    --loss:         #E37D71;
+    --loss-soft:    rgba(227,125,113,0.14);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  .page{ max-width: 1080px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  a{ color: var(--accent-ink); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  /* ---------- Header ---------- */
+  .masthead{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:20px; flex-wrap:wrap; margin-bottom:28px;
+  }
+  .masthead-title{
+    font-family:"Source Serif 4", Georgia, serif;
+    font-weight:600; font-size: clamp(24px,3.4vw,32px);
+    letter-spacing: -0.01em; text-wrap: balance; margin:0 0 6px;
+  }
+  .masthead-sub{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px; color: var(--ink-muted);
+  }
+  .tag{
+    border:1px solid var(--border-strong); border-radius:6px;
+    padding:2px 8px; color: var(--ink-2);
+  }
+  .live-badge{
+    display:flex; align-items:flex-start; gap:8px; max-width:100%;
+    font-size:12.5px; color: var(--ink-muted);
+    border:1px solid var(--border); border-radius:8px;
+    padding:8px 12px; background: var(--surface); box-shadow: var(--shadow);
+  }
+  .live-dot{
+    width:7px; height:7px; border-radius:50%; background: var(--gain);
+    box-shadow: 0 0 0 3px var(--gain-soft); flex-shrink:0; margin-top:4px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap:16px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 720px){ .hero{ grid-template-columns: 1fr; } }
+  .card{
+    background: var(--surface); border:1px solid var(--border);
+    border-radius:14px; box-shadow: var(--shadow);
+  }
+  .hero-main{ padding:28px 30px; display:flex; flex-direction:column; gap:14px; justify-content:center; }
+  .hero-label{
+    font-size:12.5px; text-transform:uppercase; letter-spacing:.08em;
+    color: var(--ink-muted); font-weight:600;
+  }
+  .hero-value-row{ display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .hero-value{
+    font-family:"Source Serif 4", Georgia, serif; font-weight:600;
+    font-size: clamp(40px,6vw,58px); line-height:1; letter-spacing:-0.02em;
+  }
+  .hero-delta{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:"IBM Plex Mono", monospace; font-weight:500; font-size:16px;
+    padding:5px 10px; border-radius:8px;
+  }
+  .hero-delta.up{ color: var(--gain); background: var(--gain-soft); }
+  .hero-delta.down{ color: var(--loss); background: var(--loss-soft); }
+  .tri-up, .tri-down{ display:inline-block; width:0; height:0; }
+  .tri-up{ border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:8px solid currentColor; }
+  .tri-down{ border-left:5px solid transparent; border-right:5px solid transparent; border-top:8px solid currentColor; }
+  .hero-foot{ font-size:13.5px; color: var(--ink-2); }
+  .hero-foot b{ color: var(--ink); font-weight:600; }
+
+  .hero-meta{ padding:24px 26px; display:flex; flex-direction:column; gap:16px; justify-content:center; }
+  .meta-row{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; }
+  .meta-row + .meta-row{ padding-top:14px; border-top:1px solid var(--border); }
+  .meta-k{ font-size:13px; color: var(--ink-2); }
+  .meta-v{ font-family:"IBM Plex Mono", monospace; font-size:14.5px; font-weight:500; text-align:right; }
+
+  /* ---------- Chart ---------- */
+  .chart-card{ padding:26px 30px 18px; margin-bottom:22px; }
+  .chart-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+  .chart-title{ font-size:16px; font-weight:600; margin:0; }
+  .chart-sub{ font-size:13px; color: var(--ink-muted); margin:2px 0 0; }
+  .chart-key{ display:flex; gap:16px; font-size:12.5px; color: var(--ink-2); }
+  .key-item{ display:flex; align-items:center; gap:6px; }
+  .key-swatch{ width:14px; height:2px; background: var(--accent); border-radius:2px; }
+  .key-swatch.dashed{ background: none; border-top:2px dashed var(--ink-muted); width:14px; }
+
+  .chart-wrap{ position:relative; margin-top:10px; }
+  .chart-svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .grid-line{ stroke: var(--grid-line); stroke-width:1; }
+  .axis-label{ fill: var(--ink-muted); font-family:"IBM Plex Mono", monospace; font-size:11px; }
+  .area-fill{ fill: var(--accent); opacity:0.10; }
+  .price-line{ fill:none; stroke: var(--accent); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+  .entry-guide{ stroke: var(--ink-muted); stroke-width:1.3; stroke-dasharray:3 4; }
+  .entry-dot{ fill: var(--surface); stroke: var(--ink-2); stroke-width:2; }
+  .end-dot{ fill: var(--accent); stroke: var(--surface); stroke-width:2; }
+  .point-hit{ fill: transparent; }
+  .end-label, .entry-label{ font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:500; }
+  .end-label{ fill: var(--accent-ink); }
+  .entry-label{ fill: var(--ink-2); }
+
+  .crosshair{ stroke: var(--ink-muted); stroke-width:1; stroke-dasharray:2 3; opacity:0; pointer-events:none; }
+  .crosshair-dot{ fill: var(--accent); stroke: var(--surface); stroke-width:2; opacity:0; pointer-events:none; }
+
+  .tooltip{
+    position:absolute; pointer-events:none; opacity:0; transform:translate(-50%,-100%);
+    background: var(--ink); color: var(--paper); border-radius:8px; padding:9px 12px;
+    font-family:"IBM Plex Mono", monospace; font-size:12px; line-height:1.5;
+    box-shadow: 0 8px 20px -6px rgba(0,0,0,0.4); white-space:nowrap; z-index:5;
+    transition: opacity .1s ease;
+  }
+  :root:not([data-theme="light"]) .tooltip{ }
+  .tooltip .t-date{ color: var(--paper); font-weight:600; display:block; margin-bottom:3px; }
+  .tooltip .t-row{ display:flex; justify-content:space-between; gap:14px; opacity:.85; }
+
+  /* ---------- Stat tiles ---------- */
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:26px;
+  }
+  @media (max-width:900px){ .stats-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:560px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+  .stat-tile{ padding:16px 18px; display:flex; flex-direction:column; gap:6px; }
+  .stat-label{ font-size:12px; color: var(--ink-muted); }
+  .stat-value{ font-family:"IBM Plex Mono", monospace; font-size:19px; font-weight:600; font-variant-numeric: tabular-nums; }
+  .stat-value.gain{ color: var(--gain); }
+  .stat-value.loss{ color: var(--loss); }
+  .stat-sub{ font-size:11.5px; color: var(--ink-muted); }
+
+  /* ---------- Table ---------- */
+  .table-card{ padding:24px 26px 26px; margin-bottom:22px; }
+  .table-title{ font-size:16px; font-weight:600; margin:0 0 2px; }
+  .table-sub{ font-size:13px; color: var(--ink-muted); margin:0 0 16px; }
+  .table-scroll{ overflow-x:auto; border-radius:10px; border:1px solid var(--border); }
+  table{ width:100%; border-collapse:collapse; min-width:560px; }
+  thead th{
+    text-align:right; font-size:11.5px; text-transform:uppercase; letter-spacing:.06em;
+    color: var(--ink-muted); font-weight:600; padding:10px 14px; background: var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  thead th:first-child, tbody td:first-child{ text-align:left; }
+  tbody td{
+    padding:10px 14px; text-align:right; font-family:"IBM Plex Mono", monospace; font-size:13px;
+    font-variant-numeric: tabular-nums; border-bottom:1px solid var(--border);
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr.is-entry{ background: var(--accent-soft); }
+  tbody tr.is-current{ background: var(--surface-2); }
+  .date-cell{ font-family:"Public Sans", sans-serif; font-size:13.5px; }
+  .date-cell .badge{
+    display:inline-block; margin-left:8px; font-family:"Public Sans",sans-serif; font-size:10.5px;
+    font-weight:600; color: var(--accent-ink); background: var(--accent-soft-2);
+    border-radius:5px; padding:1px 6px; vertical-align:1px;
+  }
+  .delta-cell{ display:inline-flex; align-items:center; gap:5px; justify-content:flex-end; width:100%; }
+  .delta-cell.gain{ color: var(--gain); }
+  .delta-cell.loss{ color: var(--loss); }
+  .delta-cell .tri-up, .delta-cell .tri-down{ transform: scale(0.8); }
+  .delta-cell.flat{ color: var(--ink-muted); }
+
+  /* ---------- Footer ---------- */
+  footer{ font-size:12.5px; color: var(--ink-muted); line-height:1.6; border-top:1px solid var(--border); padding-top:20px; }
+  footer p{ margin:0 0 8px; }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div>
+      <h1 class="masthead-title">CT (Lux) &ndash; Global Technology</h1>
+      <div class="masthead-sub">
+        <span class="tag">Clase NU &middot; USD Acumulaci&oacute;n</span>
+        <span class="tag">ISIN LU3318823302</span>
+        <span class="tag">SICAV &middot; Luxemburgo</span>
+        <span class="tag">Sector: Tecnolog&iacute;a global</span>
+      </div>
+    </div>
+    <div class="live-badge">
+      <span class="live-dot" aria-hidden="true"></span>
+      Datos de Financial Times / Morningstar &middot; retraso de 15&nbsp;min
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="card hero-main">
+      <span class="hero-label">Precio m&aacute;s reciente (NAV)</span>
+      <div class="hero-value-row">
+        <span class="hero-value" id="heroPrice">US$13.21</span>
+        <span class="hero-delta down" id="heroDelta">
+          <span class="tri-down" aria-hidden="true"></span>
+          &minus;0.23% desde tu entrada
+        </span>
+      </div>
+      <div class="hero-foot">
+        Cierre del <b id="lastCloseDate">25 de agosto de 2026</b>. Tu inversi&oacute;n inici&oacute; el <b>6 de agosto de 2026</b> a <b>US$13.24</b> por participaci&oacute;n &mdash; ese es el punto de referencia (benchmark) de todos los rendimientos en esta p&aacute;gina.
+      </div>
+    </div>
+    <div class="card hero-meta">
+      <div class="meta-row">
+        <span class="meta-k">D&iacute;as desde la entrada</span>
+        <span class="meta-v" id="daysElapsed">20 d&iacute;as</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Sesiones registradas</span>
+        <span class="meta-v" id="sessionCount">14 cierres</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-k">Variaci&oacute;n en USD</span>
+        <span class="meta-v" id="deltaUsd">&minus;US$0.03</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card chart-card">
+    <div class="chart-head">
+      <div>
+        <p class="chart-title">Precio de cierre diario (NAV, USD)</p>
+        <p class="chart-sub" id="chartDateRange">Del 6 al 25 de agosto de 2026 &middot; un punto por sesi&oacute;n de mercado</p>
+      </div>
+      <div class="chart-key">
+        <span class="key-item"><span class="key-swatch"></span>NAV diario</span>
+        <span class="key-item"><span class="key-swatch dashed"></span>Entrada &middot; 6 ago</span>
+      </div>
+    </div>
+    <div class="chart-wrap" id="chartWrap">
+      <svg class="chart-svg" id="chartSvg" viewBox="0 0 920 340" role="img" aria-label="Gr&aacute;fica de precio diario del fondo desde el 6 de agosto de 2026"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </section>
+
+  <section class="stats-grid" id="statsGrid"></section>
+
+  <section class="card table-card">
+    <p class="table-title">Detalle diario</p>
+    <p class="table-sub">Cada rengl&oacute;n compara el cierre del d&iacute;a contra la sesi&oacute;n anterior y contra tu precio de entrada (US$13.24).</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>NAV (USD)</th>
+            <th>Var. d&iacute;a</th>
+            <th>Var. desde entrada</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Fondo:</b> CT (Lux) &ndash; Global Technology, clase NU (USD, acumulaci&oacute;n) &middot; ISIN LU3318823302 &middot; dom&iacute;stico de Luxemburgo, tipo SICAV &middot; categor&iacute;a Morningstar: Renta Variable Sectorial &ndash; Tecnolog&iacute;a &middot; gestores: Paul H. Wick y Vimal Patel.</p>
+    <p>Precios de cierre (NAV a NAV) obtenidos de Financial Times / Morningstar, con al menos 15 minutos de retraso. &Uacute;ltimo dato incorporado: cierre del <span id="footerLastDate">25 de agosto de 2026</span>. Actualizaci&oacute;n autom&aacute;tica diaria.</p>
+    <p>Esta p&aacute;gina es &uacute;nicamente informativa para el seguimiento de tu inversi&oacute;n; no constituye asesor&iacute;a de inversi&oacute;n. El rendimiento pasado no garantiza resultados futuros y el valor de la participaci&oacute;n puede subir o bajar.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var data = [
+    {d:"2026-08-06", p:13.24},
+    {d:"2026-08-07", p:13.39},
+    {d:"2026-08-10", p:13.29},
+    {d:"2026-08-11", p:13.29},
+    {d:"2026-08-12", p:13.52},
+    {d:"2026-08-13", p:13.74},
+    {d:"2026-08-14", p:13.60},
+    {d:"2026-08-17", p:13.60},
+    {d:"2026-08-18", p:13.25},
+    {d:"2026-08-19", p:13.15},
+    {d:"2026-08-20", p:13.13},
+    {d:"2026-08-21", p:13.14},
+    {d:"2026-08-24", p:13.07},
+    {d:"2026-08-25", p:13.21}
+  ];
+
+  function parseLocal(iso){
+    var parts = iso.split('-').map(Number);
+    return new Date(parts[0], parts[1]-1, parts[2]);
+  }
+  function fmtShort(iso){
+    var s = parseLocal(iso).toLocaleDateString('es-MX', {day:'numeric', month:'short'});
+    return s.replace('.', '');
+  }
+  function fmtLong(iso){
+    var s = parseLocal(iso).toLocaleDateString('es-MX', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  function money(v){ return 'US$' + v.toFixed(2); }
+  function pct(v){
+    var sign = v > 0 ? '+' : (v < 0 ? '−' : '');
+    return sign + Math.abs(v).toFixed(2) + '%';
+  }
+  function signedMoney(v){
+    var sign = v > 0 ? '+' : (v < 0 ? '−' : '');
+    return sign + 'US$' + Math.abs(v).toFixed(2);
+  }
+
+  var entry = data[0].p;
+  var last = data[data.length-1];
+  data.forEach(function(r, i){
+    r.daily = i === 0 ? null : (r.p - data[i-1].p) / data[i-1].p * 100;
+    r.cum = (r.p - entry) / entry * 100;
+  });
+
+  var prices = data.map(function(r){ return r.p; });
+  var maxP = Math.max.apply(null, prices), minP = Math.min.apply(null, prices);
+  var maxRow = data.filter(function(r){ return r.p === maxP; })[0];
+  var minRow = data.filter(function(r){ return r.p === minP; })[0];
+
+  var dailyRows = data.filter(function(r){ return r.daily !== null; });
+  var bestRow = dailyRows.reduce(function(a,b){ return b.daily > a.daily ? b : a; });
+  var worstRow = dailyRows.reduce(function(a,b){ return b.daily < a.daily ? b : a; });
+
+  var peakSoFar = data[0].p, maxDrawdown = 0, ddPeakRow = data[0], ddTroughRow = data[0];
+  data.forEach(function(r){
+    if (r.p > peakSoFar) peakSoFar = r.p;
+    var dd = (r.p - peakSoFar) / peakSoFar * 100;
+    if (dd < maxDrawdown){ maxDrawdown = dd; ddTroughRow = r; ddPeakRow = data.filter(function(x){return x.p===peakSoFar;})[0]; }
+  });
+
+  var totalReturn = last.cum;
+  var totalReturnUsd = last.p - entry;
+
+  document.getElementById('heroPrice').textContent = money(last.p);
+  var heroDeltaEl = document.getElementById('heroDelta');
+  heroDeltaEl.className = 'hero-delta ' + (totalReturn >= 0 ? 'up' : 'down');
+  heroDeltaEl.innerHTML = '<span class="' + (totalReturn >= 0 ? 'tri-up' : 'tri-down') + '" aria-hidden="true"></span>' + pct(totalReturn) + ' desde tu entrada';
+  document.getElementById('deltaUsd').textContent = signedMoney(totalReturnUsd);
+
+  var daysElapsed = Math.max(0, Math.round((new Date() - parseLocal(data[0].d)) / 86400000));
+  document.getElementById('daysElapsed').textContent = daysElapsed + (daysElapsed === 1 ? ' día' : ' días');
+  document.getElementById('sessionCount').textContent = data.length + (data.length === 1 ? ' cierre' : ' cierres');
+
+  function fmtLongDate(iso){
+    var s = parseLocal(iso).toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+    return s;
+  }
+  document.getElementById('lastCloseDate').textContent = fmtLongDate(last.d);
+  document.getElementById('footerLastDate').textContent = fmtLongDate(last.d);
+  document.getElementById('chartDateRange').textContent = 'Del ' + fmtShort(data[0].d) + ' al ' + fmtShort(last.d) + ' de ' + parseLocal(last.d).getFullYear() + ' · un punto por sesión de mercado';
+
+  /* ---------- stat tiles ---------- */
+  var stats = [
+    { label:'Rendimiento total desde entrada', value: pct(totalReturn), cls: totalReturn>=0?'gain':'loss', sub: signedMoney(totalReturnUsd) + ' por participación' },
+    { label:'Precio máximo del periodo', value: money(maxP), cls:'', sub: fmtShort(maxRow.d) },
+    { label:'Precio mínimo del periodo', value: money(minP), cls:'', sub: fmtShort(minRow.d) },
+    { label:'Mejor día', value: pct(bestRow.daily), cls:'gain', sub: fmtShort(bestRow.d) },
+    { label:'Peor día', value: pct(worstRow.daily), cls:'loss', sub: fmtShort(worstRow.d) }
+  ];
+  var statsGrid = document.getElementById('statsGrid');
+  statsGrid.innerHTML = stats.map(function(s){
+    return '<div class="card stat-tile"><span class="stat-label">' + s.label + '</span>' +
+      '<span class="stat-value ' + s.cls + '">' + s.value + '</span>' +
+      '<span class="stat-sub">' + s.sub + '</span></div>';
+  }).join('');
+
+  /* ---------- table ---------- */
+  var tbody = document.getElementById('tableBody');
+  tbody.innerHTML = data.map(function(r, i){
+    var rowClass = i === 0 ? 'is-entry' : (i === data.length-1 ? 'is-current' : '');
+    var dailyHtml;
+    if (r.daily === null){
+      dailyHtml = '<span class="delta-cell flat">&mdash;</span>';
+    } else {
+      var dCls = r.daily > 0 ? 'gain' : (r.daily < 0 ? 'loss' : 'flat');
+      var dTri = r.daily > 0 ? '<span class="tri-up" aria-hidden="true"></span>' : (r.daily < 0 ? '<span class="tri-down" aria-hidden="true"></span>' : '');
+      dailyHtml = '<span class="delta-cell ' + dCls + '">' + dTri + pct(r.daily) + '</span>';
+    }
+    var cCls = r.cum > 0 ? 'gain' : (r.cum < 0 ? 'loss' : 'flat');
+    var cTri = r.cum > 0 ? '<span class="tri-up" aria-hidden="true"></span>' : (r.cum < 0 ? '<span class="tri-down" aria-hidden="true"></span>' : '');
+    var cumHtml = '<span class="delta-cell ' + cCls + '">' + cTri + pct(r.cum) + '</span>';
+    var badge = i === 0 ? '<span class="badge">ENTRADA</span>' : (i === data.length-1 ? '<span class="badge">MÁS RECIENTE</span>' : '');
+    return '<tr class="' + rowClass + '"><td class="date-cell">' + fmtLong(r.d) + badge + '</td><td>' + money(r.p) + '</td><td>' + dailyHtml + '</td><td>' + cumHtml + '</td></tr>';
+  }).join('');
+
+  /* ---------- chart ---------- */
+  var svg = document.getElementById('chartSvg');
+  var W = 920, H = 340;
+  var padL = 56, padR = 20, padT = 16, padB = 34;
+  var plotW = W - padL - padR, plotH = H - padT - padB;
+
+  var yMax = Math.ceil(maxP * 20) / 20 + 0.05;
+  var yMin = Math.floor(minP * 20) / 20 - 0.05;
+  var ticks = [];
+  var step = (yMax - yMin) / 4;
+  for (var t = 0; t <= 4; t++){ ticks.push(yMin + step * t); }
+
+  function xFor(i){ return padL + (plotW * i) / (data.length - 1); }
+  function yFor(p){ return padT + plotH - ((p - yMin) / (yMax - yMin)) * plotH; }
+
+  var ns = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs){
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+
+  var svgParts = [];
+
+  ticks.forEach(function(tv){
+    var y = yFor(tv);
+    svgParts.push(el('line', {x1:padL, x2:W-padR, y1:y, y2:y, class:'grid-line'}));
+    var lbl = el('text', {x:padL-10, y:y+4, class:'axis-label', 'text-anchor':'end'});
+    lbl.textContent = '$' + tv.toFixed(2);
+    svgParts.push(lbl);
+  });
+
+  var labelStep = Math.max(1, Math.ceil(data.length / 8));
+  data.forEach(function(r, i){
+    if (i % labelStep === 0 || i === data.length-1){
+      var x = xFor(i);
+      var lbl = el('text', {x:x, y:H-10, class:'axis-label', 'text-anchor':'middle'});
+      lbl.textContent = fmtShort(r.d);
+      svgParts.push(lbl);
+    }
+  });
+
+  var entryX = xFor(0);
+  svgParts.push(el('line', {x1:entryX, x2:entryX, y1:padT, y2:padT+plotH, class:'entry-guide'}));
+
+  var areaPts = data.map(function(r,i){ return xFor(i) + ',' + yFor(r.p); }).join(' L ');
+  var areaPath = 'M ' + xFor(0) + ',' + yFor(yMin) + ' L ' + areaPts + ' L ' + xFor(data.length-1) + ',' + yFor(yMin) + ' Z';
+  svgParts.push(el('path', {d:areaPath, class:'area-fill'}));
+
+  var linePts = data.map(function(r,i){ return xFor(i) + ',' + yFor(r.p); }).join(' L ');
+  svgParts.push(el('path', {d:'M ' + linePts, class:'price-line'}));
+
+  svgParts.push(el('circle', {cx:entryX, cy:yFor(entry), r:5, class:'entry-dot'}));
+  var entryLbl = el('text', {x:entryX + 8, y: yFor(entry) - 10, class:'entry-label'});
+  entryLbl.textContent = 'Entrada $' + entry.toFixed(2);
+  svgParts.push(entryLbl);
+
+  var endX = xFor(data.length-1), endY = yFor(last.p);
+  svgParts.push(el('circle', {cx:endX, cy:endY, r:5, class:'end-dot'}));
+  var endLbl = el('text', {x:endX - 8, y: endY - 12, class:'end-label', 'text-anchor':'end'});
+  endLbl.textContent = '$' + last.p.toFixed(2);
+  svgParts.push(endLbl);
+
+  var crosshairV = el('line', {x1:0, x2:0, y1:padT, y2:padT+plotH, class:'crosshair'});
+  var crosshairDot = el('circle', {cx:0, cy:0, r:5, class:'crosshair-dot'});
+
+  data.forEach(function(r, i){
+    svgParts.push(el('circle', {cx:xFor(i), cy:yFor(r.p), r:12, class:'point-hit', 'data-i':i}));
+  });
+
+  svgParts.forEach(function(n){ svg.appendChild(n); });
+  svg.appendChild(crosshairV);
+  svg.appendChild(crosshairDot);
+
+  var tooltip = document.getElementById('tooltip');
+  var wrap = document.getElementById('chartWrap');
+
+  function showPoint(i, clientX){
+    var r = data[i];
+    var x = xFor(i), y = yFor(r.p);
+    crosshairV.setAttribute('x1', x); crosshairV.setAttribute('x2', x);
+    crosshairV.style.opacity = 1;
+    crosshairDot.setAttribute('cx', x); crosshairDot.setAttribute('cy', y);
+    crosshairDot.style.opacity = 1;
+
+    var dailyText = r.daily === null ? 'Sin sesión previa' : ('Día: ' + pct(r.daily));
+    tooltip.innerHTML = '<span class="t-date">' + fmtShort(r.d) + ' &middot; ' + money(r.p) + '</span>' +
+      '<span class="t-row"><span>' + dailyText + '</span></span>' +
+      '<span class="t-row"><span>Desde entrada: ' + pct(r.cum) + '</span></span>';
+
+    var svgRect = svg.getBoundingClientRect();
+    var scale = svgRect.width / W;
+    var left = x * scale;
+    var top = (y * scale) - 10;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.style.opacity = 1;
+  }
+  function hidePoint(){
+    crosshairV.style.opacity = 0;
+    crosshairDot.style.opacity = 0;
+    tooltip.style.opacity = 0;
+  }
+
+  svg.addEventListener('pointermove', function(evt){
+    var rect = svg.getBoundingClientRect();
+    var scale = W / rect.width;
+    var localX = (evt.clientX - rect.left) * scale;
+    var nearest = 0, best = Infinity;
+    data.forEach(function(r, i){
+      var dx = Math.abs(xFor(i) - localX);
+      if (dx < best){ best = dx; nearest = i; }
+    });
+    showPoint(nearest, evt.clientX);
+  });
+  svg.addEventListener('pointerleave', hidePoint);
+})();
+</script>
