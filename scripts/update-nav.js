@@ -32,7 +32,7 @@ async function fetchHistoricalRows() {
     // no había banner, seguimos
   }
 
-  await page.waitForSelector('table', { timeout: 30000 });
+  await page.waitForSelector('table', { timeout: 30000, state: 'attached' });
 
   const tables = await page.$$('table');
   let rows = null;
