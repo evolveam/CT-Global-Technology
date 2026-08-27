@@ -2,9 +2,9 @@ name: Actualizar NAV diario
 
 on:
   schedule:
-    - cron: '0 14 * * *'
+    - cron: '23 14 * * *'
+    - cron: '23 22 * * *'
   workflow_dispatch: {}
-
 permissions:
   contents: write
 
