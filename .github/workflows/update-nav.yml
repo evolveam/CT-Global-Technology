@@ -36,5 +36,7 @@ jobs:
             echo "Sin cambios: no hay cierre nuevo disponible."
           else
             git commit -m "Actualizacion automatica de NAV"
+            git fetch origin main
+            git rebase origin/main
             git push
           fi
